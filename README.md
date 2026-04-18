@@ -1,4 +1,4 @@
-# LASER-VFL: 面向缺失特征场景的纵向联邦学习框架
+# LASER-VFL: 面向缺失特征场景的垂直联邦学习框架
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.8+-ee4c2c.svg)](https://pytorch.org/)

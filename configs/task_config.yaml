@@ -1,0 +1,375 @@
+# ==========================================
+# [全局模板定义]
+# ==========================================
+
+# --- 模板: Diabetes 5 (NHANES 表格数据) ---
+_template_d5: &base_d5
+  dataset: diabetes5
+  model: mlp
+  criterion: cross_entropy
+  num_epochs: 100  # [修改] 改为 100 轮
+  batch_size: 256
+  optimizer: adam
+  lr: 0.001
+  weight_decay: 0.0001
+  momentum: n/a
+  scheduler: n/a
+  eta_min_ratio: n/a
+  num_workers: 0  # [Windows 必需] 强制单进程加载
+
+# --- 模板: Diabetes 6 (IDRiD 图像数据) ---
+_template_d6: &base_d6
+  dataset: diabetes6
+  model: resnet18
+  criterion: cross_entropy
+  num_epochs: 100  # [修改] 改为 100 轮
+  batch_size: 16
+  optimizer: adam
+  lr: 0.0001
+  weight_decay: 0.0001
+  momentum: n/a
+  scheduler: n/a
+  eta_min_ratio: n/a
+  num_workers: 0  # [Windows 必需] 强制单进程加载
+
+
+# ==========================================
+# 1. LASER-VFL
+# ==========================================
+laser:
+  diabetes1:
+    4:
+      0.0: &laser_d1
+        dataset: diabetes1
+        model: mlp
+        criterion: cross_entropy
+        num_epochs: 100  # [修改] 改为 100 轮
+        batch_size: 256
+        optimizer: adam
+        lr: 0.0001
+        weight_decay: 0.0001
+        momentum: n/a
+        scheduler: n/a
+        eta_min_ratio: n/a
+        num_workers: 0
+      0.1: *laser_d1
+      0.5: *laser_d1
+
+  diabetes2:
+    2:
+      0.0: &laser_d2
+        dataset: diabetes2
+        model: mlp
+        criterion: cross_entropy
+        num_epochs: 100  # [修改] 改为 100 轮
+        batch_size: 256
+        optimizer: adam
+        lr: 0.0001
+        weight_decay: 0.0001
+        momentum: n/a
+        scheduler: n/a
+        eta_min_ratio: n/a
+        num_workers: 0
+      # --- 敏感性分析全量缺失率 ---
+      0.05: *laser_d2
+      0.1: *laser_d2
+      0.15: *laser_d2
+      0.2: *laser_d2
+      0.25: *laser_d2
+      0.3: *laser_d2
+      0.35: *laser_d2
+      0.4: *laser_d2
+      0.45: *laser_d2
+      0.5: *laser_d2
+      0.55: *laser_d2
+      0.6: *laser_d2
+      0.65: *laser_d2
+      0.7: *laser_d2
+      0.75: *laser_d2
+      0.8: *laser_d2
+
+  diabetes3:
+    3:
+      0.0: &laser_d3
+        dataset: diabetes3
+        model: mlp
+        criterion: cross_entropy
+        num_epochs: 100  # [修改] 改为 100 轮
+        batch_size: 256
+        optimizer: adam
+        lr: 0.0001
+        weight_decay: 0.0001
+        momentum: n/a
+        scheduler: n/a
+        eta_min_ratio: n/a
+        num_workers: 0
+      0.1: *laser_d3
+      0.5: *laser_d3
+
+  diabetes4:
+    4:
+      0.0: &laser_d4
+        dataset: diabetes4
+        model: mlp
+        criterion: cross_entropy
+        num_epochs: 100  # [修改] 改为 100 轮
+        batch_size: 256
+        optimizer: adam
+        lr: 0.0001
+        weight_decay: 0.0001
+        momentum: n/a
+        scheduler: n/a
+        eta_min_ratio: n/a
+        num_workers: 0
+      0.1: *laser_d4
+      0.5: *laser_d4
+
+  diabetes5:
+    4:
+      0.0: *base_d5
+      0.05: *base_d5
+      0.1: *base_d5
+      0.15: *base_d5
+      0.2: *base_d5
+      0.25: *base_d5
+      0.3: *base_d5
+      0.35: *base_d5
+      0.4: *base_d5
+      0.45: *base_d5
+      0.5: *base_d5
+      0.55: *base_d5
+      0.6: *base_d5
+      0.65: *base_d5
+      0.7: *base_d5
+      0.75: *base_d5
+      0.8: *base_d5
+      None: *base_d5
+
+  diabetes6:
+    4:
+      0.0: *base_d6
+      0.1: *base_d6
+      0.5: *base_d6
+      None: *base_d6
+
+
+# ==========================================
+# 2. Decoupled VFL (Local, SVFL, Combinatorial)
+# ==========================================
+decoupled:
+  diabetes1:
+    4:
+      0.0: &dec_d1
+        <<: *laser_d1
+      0.1: *dec_d1
+      0.5: *dec_d1
+  
+  diabetes2:
+    2:
+      0.0: &dec_d2
+        <<: *laser_d2
+      0.05: *dec_d2
+      0.1: *dec_d2
+      0.15: *dec_d2
+      0.2: *dec_d2
+      0.25: *dec_d2
+      0.3: *dec_d2
+      0.35: *dec_d2
+      0.4: *dec_d2
+      0.45: *dec_d2
+      0.5: *dec_d2
+      0.55: *dec_d2
+      0.6: *dec_d2
+      0.65: *dec_d2
+      0.7: *dec_d2
+      0.75: *dec_d2
+      0.8: *dec_d2
+
+  diabetes3:
+    3:
+      0.0: &dec_d3
+        <<: *laser_d3
+      0.1: *dec_d3
+      0.5: *dec_d3
+  
+  diabetes4:
+    4:
+      0.0: &dec_d4
+        <<: *laser_d4
+      0.1: *dec_d4
+      0.5: *dec_d4
+
+  diabetes5:
+    4:
+      0.0: *base_d5
+      0.05: *base_d5
+      0.1: *base_d5
+      0.15: *base_d5
+      0.2: *base_d5
+      0.25: *base_d5
+      0.3: *base_d5
+      0.35: *base_d5
+      0.4: *base_d5
+      0.45: *base_d5
+      0.5: *base_d5
+      0.55: *base_d5
+      0.6: *base_d5
+      0.65: *base_d5
+      0.7: *base_d5
+      0.75: *base_d5
+      0.8: *base_d5
+      None: *base_d5
+
+  diabetes6:
+    4:
+      0.0: *base_d6
+      0.1: *base_d6
+      0.5: *base_d6
+
+
+# ==========================================
+# 3. Ensemble VFL
+# ==========================================
+ensemble:
+  diabetes1:
+    4:
+      0.0: &ens_d1
+        <<: *laser_d1
+      0.1: *ens_d1
+      0.5: *ens_d1
+  
+  diabetes2:
+    2:
+      0.0: &ens_d2
+        <<: *laser_d2
+      0.05: *ens_d2
+      0.1: *ens_d2
+      0.15: *ens_d2
+      0.2: *ens_d2
+      0.25: *ens_d2
+      0.3: *ens_d2
+      0.35: *ens_d2
+      0.4: *ens_d2
+      0.45: *ens_d2
+      0.5: *ens_d2
+      0.55: *ens_d2
+      0.6: *ens_d2
+      0.65: *ens_d2
+      0.7: *ens_d2
+      0.75: *ens_d2
+      0.8: *ens_d2
+
+  diabetes3:
+    3:
+      0.0: &ens_d3
+        <<: *laser_d3
+      0.1: *ens_d3
+      0.5: *ens_d3
+  
+  diabetes4:
+    4:
+      0.0: &ens_d4
+        <<: *laser_d4
+      0.1: *ens_d4
+      0.5: *ens_d4
+
+  diabetes5:
+    4:
+      0.0: *base_d5
+      0.05: *base_d5
+      0.1: *base_d5
+      0.15: *base_d5
+      0.2: *base_d5
+      0.25: *base_d5
+      0.3: *base_d5
+      0.35: *base_d5
+      0.4: *base_d5
+      0.45: *base_d5
+      0.5: *base_d5
+      0.55: *base_d5
+      0.6: *base_d5
+      0.65: *base_d5
+      0.7: *base_d5
+      0.75: *base_d5
+      0.8: *base_d5
+      None: *base_d5
+
+  diabetes6:
+    4:
+      0.0: *base_d6
+      0.1: *base_d6
+      0.5: *base_d6
+
+
+# ==========================================
+# 4. PLUG
+# ==========================================
+plug:
+  diabetes1:
+    4:
+      0.0: &plug_d1
+        <<: *laser_d1
+      0.1: *plug_d1
+      0.5: *plug_d1
+  
+  diabetes2:
+    2:
+      0.0: &plug_d2
+        <<: *laser_d2
+      0.05: *plug_d2
+      0.1: *plug_d2
+      0.15: *plug_d2
+      0.2: *plug_d2
+      0.25: *plug_d2
+      0.3: *plug_d2
+      0.35: *plug_d2
+      0.4: *plug_d2
+      0.45: *plug_d2
+      0.5: *plug_d2
+      0.55: *plug_d2
+      0.6: *plug_d2
+      0.65: *plug_d2
+      0.7: *plug_d2
+      0.75: *plug_d2
+      0.8: *plug_d2
+
+  diabetes3:
+    3:
+      0.0: &plug_d3
+        <<: *laser_d3
+      0.1: *plug_d3
+      0.5: *plug_d3
+  
+  diabetes4:
+    4:
+      0.0: &plug_d4
+        <<: *laser_d4
+      0.1: *plug_d4
+      0.5: *plug_d4
+
+  diabetes5:
+    4:
+      0.0: *base_d5
+      0.05: *base_d5
+      0.1: *base_d5
+      0.15: *base_d5
+      0.2: *base_d5
+      0.25: *base_d5
+      0.3: *base_d5
+      0.35: *base_d5
+      0.4: *base_d5
+      0.45: *base_d5
+      0.5: *base_d5
+      0.55: *base_d5
+      0.6: *base_d5
+      0.65: *base_d5
+      0.7: *base_d5
+      0.75: *base_d5
+      0.8: *base_d5
+      None: *base_d5
+
+  diabetes6:
+    4:
+      0.0: *base_d6
+      0.1: *base_d6
+      0.5: *base_d6

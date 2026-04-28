@@ -4,7 +4,7 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.8+-ee4c2c.svg)](https://pytorch.org/)
 [![WandB](https://img.shields.io/badge/Weights_&_Biases-Supported-FFBE00.svg)](https://wandb.ai/)
 
-本项目为《面向缺失特征场景的LASER-VFL模型在糖尿病风险预测中的应用研究》的官方代码实现。
+本项目为《面向缺失特征场景的LASER-VFL模型在糖尿病风险预测中的应用研究》的官方代码实现。参考Valdeira P, Wang S, Chi Y. Vertical federated learning with missing features during training and inference[J]. arXiv preprint arXiv:2410.22564, 2024.
 
 针对垂直联邦学习（VFL）在实际医疗场景（如糖尿病风险预测）中普遍存在的**“特征缺失”**与**“数据孤岛”**难题，本项目实现了 **LASER-VFL** 框架。该框架打破了传统分离神经网络（SplitNN）对数据视图完整性的强依赖，能在训练和推理阶段平稳应对任意客户端或特征块的缺失情况。
 
